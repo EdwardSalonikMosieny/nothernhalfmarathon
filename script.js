@@ -8,6 +8,14 @@ const donationDialog = document.querySelector("#donation-dialog");
 const donateButtons = document.querySelectorAll(".donate-toggle");
 const donationClose = document.querySelector(".donation-close");
 const internalLinks = document.querySelectorAll('a[href^="#"]');
+const galleryDialog = document.querySelector("#gallery-dialog");
+const galleryImages = Array.from(document.querySelectorAll(".photo-grid img"));
+const galleryViewerImage = document.querySelector(".gallery-viewer-image");
+const galleryClose = document.querySelector(".gallery-close");
+const galleryPrev = document.querySelector(".gallery-prev");
+const galleryNext = document.querySelector(".gallery-next");
+const galleryCounter = document.querySelector(".gallery-counter");
+let activeGalleryIndex = 0;
 
 if (year) {
   year.textContent = new Date().getFullYear();
@@ -107,6 +115,73 @@ if (donationDialog) {
 
 if (donationClose && donationDialog) {
   donationClose.addEventListener("click", () => donationDialog.close());
+}
+
+const showGalleryImage = (index) => {
+  if (!galleryViewerImage || !galleryCounter || galleryImages.length === 0) return;
+
+  activeGalleryIndex = (index + galleryImages.length) % galleryImages.length;
+  const image = galleryImages[activeGalleryIndex];
+
+  galleryViewerImage.src = image.currentSrc || image.src;
+  galleryViewerImage.alt = image.alt;
+  galleryCounter.textContent = `${activeGalleryIndex + 1} / ${galleryImages.length}`;
+};
+
+const openGallery = (index) => {
+  if (!galleryDialog) return;
+
+  showGalleryImage(index);
+
+  if (typeof galleryDialog.showModal === "function") {
+    galleryDialog.showModal();
+  } else {
+    galleryDialog.setAttribute("open", "");
+  }
+};
+
+const closeGallery = () => {
+  if (!galleryDialog) return;
+
+  if (typeof galleryDialog.close === "function") {
+    galleryDialog.close();
+  } else {
+    galleryDialog.removeAttribute("open");
+  }
+};
+
+galleryImages.forEach((image, index) => {
+  image.tabIndex = 0;
+  image.addEventListener("click", () => openGallery(index));
+  image.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openGallery(index);
+    }
+  });
+});
+
+if (galleryPrev) {
+  galleryPrev.addEventListener("click", () => showGalleryImage(activeGalleryIndex - 1));
+}
+
+if (galleryNext) {
+  galleryNext.addEventListener("click", () => showGalleryImage(activeGalleryIndex + 1));
+}
+
+if (galleryClose) {
+  galleryClose.addEventListener("click", closeGallery);
+}
+
+if (galleryDialog) {
+  galleryDialog.addEventListener("click", (event) => {
+    if (event.target === galleryDialog) closeGallery();
+  });
+
+  galleryDialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") showGalleryImage(activeGalleryIndex - 1);
+    if (event.key === "ArrowRight") showGalleryImage(activeGalleryIndex + 1);
+  });
 }
 
 const toggleBackToTop = () => {

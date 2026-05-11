@@ -20,7 +20,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/pic35.jpeg" />
     <title>Northern Kenya Half Marathon | Run the Wild. Empower the Future.</title>
-    <link rel="stylesheet" href="style.css?v=button-fix" />
+    <link rel="stylesheet" href="style.css?v=gallery-viewer" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -68,6 +68,7 @@
       <section class="section story" id="about" aria-label="About the Northern Kenya Half Marathon">
         <div class="container two-column">
           <div>
+            <h2>Our Story</h2>
             <p>
               Across the vast landscapes of Northern Kenya, dusty trails cross ancient community
               lands, wildlife moves through open plains, and resilience is woven into everyday life.
@@ -104,6 +105,7 @@
       <section class="section section-muted" id="race-info" aria-label="Race categories">
         <div class="container">
           <div class="section-heading">
+            <h2>Race Details</h2>
             <p>
               Race categories are organized for runners, families, schools, and community groups
               as part of the annual Northern Kenya Half Marathon.
@@ -154,6 +156,7 @@
       <section class="section impact" id="mission" aria-label="Mission and impact">
         <div class="container">
           <div class="section-heading">
+            <h2>Our Mission</h2>
             <p>
               The marathon creates a shared platform for athletic growth, dignity, unity,
               opportunity, and long-term community visibility.
@@ -216,6 +219,7 @@
       <section class="section section-muted" id="experience" aria-label="Northern Kenya race experience">
         <div class="container">
           <div class="section-heading">
+            <h2>Race Experience</h2>
             <p>
               A race weekend shaped by land, culture, conservation, and the spirit of communities
               running together.
@@ -253,6 +257,7 @@
       <section class="section event-gallery" id="gallery" aria-label="Event gallery">
         <div class="container">
           <div class="section-heading">
+            <h2>Gallery</h2>
             <p>
               A growing collection of moments from the Northern Kenya Half Marathon journey:
               athletes, communities, partners, culture, conservation, and the landscapes that make
@@ -310,6 +315,7 @@
       <section class="section partners" id="partners" aria-label="Partners and sponsors">
         <div class="container">
           <div class="section-heading">
+            <h2>Partners</h2>
             <p>
               The Northern Kenya Half Marathon welcomes partners, sponsors, conservation
               organizations, community leaders, schools, youth groups, women groups, volunteers,
@@ -444,6 +450,15 @@
     </footer>
 
     <button class="back-to-top" type="button" aria-label="Back to top">&uarr;</button>
+    <dialog class="gallery-dialog" id="gallery-dialog" aria-label="Image gallery viewer">
+      <div class="gallery-viewer">
+        <button class="gallery-close" type="button" aria-label="Close gallery">&times;</button>
+        <button class="gallery-control gallery-prev" type="button" aria-label="Previous image">&#8249;</button>
+        <img class="gallery-viewer-image" src="" alt="" />
+        <button class="gallery-control gallery-next" type="button" aria-label="Next image">&#8250;</button>
+        <p class="gallery-counter" aria-live="polite"></p>
+      </div>
+    </dialog>
     <dialog class="donation-dialog" id="donation-dialog" aria-labelledby="donation-title">
       <div class="donation-card">
         <button class="donation-close" type="button" aria-label="Close donation details">&times;</button>
@@ -477,6 +492,6 @@
         </dl>
       </div>
     </dialog>
-    <script src="script.js?v=button-fix"></script>
+    <script src="script.js?v=gallery-viewer"></script>
   </body>
 </html>
