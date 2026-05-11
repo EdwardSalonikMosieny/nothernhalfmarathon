@@ -15,11 +15,74 @@ const galleryClose = document.querySelector(".gallery-close");
 const galleryPrev = document.querySelector(".gallery-prev");
 const galleryNext = document.querySelector(".gallery-next");
 const galleryCounter = document.querySelector(".gallery-counter");
+const countdownEdition = document.querySelector("[data-countdown-edition]");
+const countdownDate = document.querySelector("[data-countdown-date]");
+const countdownDays = document.querySelector("[data-countdown-days]");
+const countdownHours = document.querySelector("[data-countdown-hours]");
+const countdownMinutes = document.querySelector("[data-countdown-minutes]");
+const countdownSeconds = document.querySelector("[data-countdown-seconds]");
 let activeGalleryIndex = 0;
 
 if (year) {
   year.textContent = new Date().getFullYear();
 }
+
+const padTime = (value) => String(value).padStart(2, "0");
+
+const getNextEvent = (now = new Date()) => {
+  const baseEdition = 3;
+  const baseDate = new Date("2026-05-16T00:00:00+03:00");
+  const eventDate = new Date(baseDate);
+  let edition = baseEdition;
+
+  while (now >= eventDate) {
+    eventDate.setFullYear(eventDate.getFullYear() + 1);
+    edition += 1;
+  }
+
+  return { edition, eventDate };
+};
+
+const formatEventDate = (eventDate) =>
+  new Intl.DateTimeFormat("en-KE", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Africa/Nairobi",
+  }).format(eventDate);
+
+const updateCountdown = () => {
+  if (
+    !countdownEdition ||
+    !countdownDate ||
+    !countdownDays ||
+    !countdownHours ||
+    !countdownMinutes ||
+    !countdownSeconds
+  ) {
+    return;
+  }
+
+  const now = new Date();
+  const { edition, eventDate } = getNextEvent(now);
+  const remaining = Math.max(eventDate - now, 0);
+  const totalSeconds = Math.floor(remaining / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  countdownEdition.textContent = edition;
+  countdownDate.textContent = formatEventDate(eventDate);
+  countdownDays.textContent = days;
+  countdownHours.textContent = padTime(hours);
+  countdownMinutes.textContent = padTime(minutes);
+  countdownSeconds.textContent = padTime(seconds);
+};
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
 if (navToggle && navMenu) {
   navToggle.addEventListener("click", () => {
