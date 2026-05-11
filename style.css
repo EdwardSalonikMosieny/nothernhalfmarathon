@@ -553,22 +553,44 @@ textarea {
 }
 
 .photo-grid figure {
-  position: relative;
-  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   margin: 0;
   overflow: hidden;
   border-radius: var(--radius);
-  background: var(--brown);
+  background: var(--white);
   box-shadow: var(--shadow);
-  cursor: zoom-in;
 }
 
 .photo-grid img {
   width: 100%;
-  height: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  cursor: zoom-in;
   transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.photo-grid figcaption {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem 1.05rem 1.15rem;
+}
+
+.photo-grid figcaption h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.2;
+}
+
+.photo-grid figcaption p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
 }
 
 .photo-grid figure:hover img,
